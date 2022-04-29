@@ -1,0 +1,6 @@
+<div class="reportsList">
+    <div v-for="rpt in reportsList" class="listItem" @click="onClick(rpt)">
+        <img :src="getIconSrc()" :alt="rpt.name" />
+        <h3 :title="rpt.title">{{rpt.name}}</h3>
+    </div>
+</div>

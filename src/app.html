@@ -1,0 +1,36 @@
+<div>
+    <div v-if="token==''">
+        <signin :handleSubmitCallbackFunction="handleSubmit"></signin>
+    </div>
+    <div id="app-root" class="app" v-if="token!=''">
+        <div class="app-sidebar">
+            <div class="app-sidebar-header">
+                <div class="app-sidebar-header-group">
+                    <div id="app-portal-url">{{serverUrl}}</div>
+                </div>
+                <div class="app-sidebar-header-group app-user-info">
+                    <div>
+                        <div id="app-username">{{username}}</div>
+                    </div>
+                    <button id="app-logout-button" class="app-sidebar-btn app-logout-button" v-on:click="handleLogout">Log Out</button>
+                </div>
+                <div class="app-sidebar-header-group">
+                    <button id="app-create-rdl-report" class="app-sidebar-btn app-create-report-btn" type="button" v-on:click="createRDLReport">Create Blank RDL Report</button>
+                    <button id="app-create-page-report" class="app-sidebar-btn app-create-report-btn" type="button" v-on:click="createPageReport">Create Blank Page Report</button>
+                    <button id="app-open-report-designer" class="app-sidebar-btn app-create-report-btn" type="button" v-on:click="openReportInDesigner">Open selected report in Designer</button>
+                </div>
+            </div>
+            <div class="app-sidebar-content">
+                <reportslist @reportSelectedCallbackFn="reportSelected" :token="token" :serverUrl="serverUrl" :reportsList="reportsList"></reportslist>
+            </div>
+        </div>
+        <div v-if="isViewer" class="report-viewer">
+            <reportviewer :key="reportkey" :reportId="reportID" :token="token"
+                          :docTitle="docTitle" :serverUrl="serverUrl"></reportviewer>
+        </div>
+        <div v-else class="report-designer">
+            <reportdesigner :key="reportkey" :token="token" :serverUrl="serverUrl" :isViewer="isViewer" :isInitialized="initialized"
+                            :docTitle="docTitle" :reportId="reportID" :reportType="reportType" :newReport="newReport" :reportsList="reportsList"></reportdesigner>
+        </div>
+    </div>
+</div>
